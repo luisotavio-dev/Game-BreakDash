@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,6 +38,15 @@ public class GameManager : MonoBehaviour
     public int Score => score;
     public int Lives => lives;
 
+    public Sprite liveSprite;
+    public Sprite noLiveSprite;
+    public Image[] heartsOnCanvas;
+
+    private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FindSceneReferences();
+    }
+
     private void Awake()
     {
         if (m_Instance != null)
@@ -58,18 +68,23 @@ public class GameManager : MonoBehaviour
 
     private void FindSceneReferences()
     {
-        ball = FindObjectOfType<Ball>();
-        paddle = FindObjectOfType<Paddle>();
-        bricks = FindObjectsOfType<Brick>();
         try
         {
+            ball = FindObjectOfType<Ball>();
+            paddle = FindObjectOfType<Paddle>();
+            bricks = FindObjectsOfType<Brick>();
             scoreText = GameObject.Find("ScoreText").GetComponent<TMP_Text>();
+            //load live images
+            heartsOnCanvas = new Image[lives];
+            for (int i = 0; i < lives; i++)
+            {
+                heartsOnCanvas[i] = GameObject.Find("Life" + (i + 1)).GetComponent<Image>();
+            }
         }
-        catch (System.Exception)
+        catch
         {
             //
         }
-        
     }
 
     private void LoadLevel(int level)
@@ -87,13 +102,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Level" + level);
     }
 
-    private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
-    {
-        FindSceneReferences();
-    }
-
     public void OnBallMiss()
     {
+        heartsOnCanvas[lives - 1].sprite = noLiveSprite;
         lives--;
 
         if (lives > 0)

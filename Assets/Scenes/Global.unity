@@ -163,6 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 248b3c9d3b1824b0182bce102031a3cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  liveSprite: {fileID: -571240377, guid: 417f570d431084172a21eb3fe5b003e0, type: 3}
+  noLiveSprite: {fileID: -213028562, guid: 417f570d431084172a21eb3fe5b003e0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
