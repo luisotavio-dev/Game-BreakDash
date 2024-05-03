@@ -67,5 +67,7 @@ public class Paddle : MonoBehaviour
         float bounceAngle = (contactDistance.x / paddle.bounds.size.x) * maxBounceAngle;
         ballDirection = Quaternion.AngleAxis(bounceAngle, Vector3.forward) * ballDirection;
         ball.velocity = ballDirection * ball.velocity.magnitude;
+
+        GetComponent<AudioSource>().Play(0);
     }
 }
